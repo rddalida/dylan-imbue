@@ -1,10 +1,10 @@
-import datasets
+# code directly taken from https://docs.openpipe.ai/api-reference/post-unstablefinetunecreate
 import requests
 
 url = "https://api.openpipe.ai/api/v1/unstable/finetune/create"
 
 payload = {
-    "datasetId": "",
+    "datasetId": "476d7c11-48ef-4e59-be41-5892fb47e508",
     "slug": "finetune-race",
     "baseModel": "meta-llama/Meta-Llama-3.1-8B-Instruct",
     "overrides": {
@@ -21,7 +21,7 @@ payload = {
     }
 }
 headers = {
-    "Authorization": "Bearer <token>",
+    "Authorization": "Bearer opk_425ad4f76622bee031cb088bc837555994a12b88f6",
     "Content-Type": "application/json"
 }
 
