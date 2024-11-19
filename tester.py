@@ -1,15 +1,15 @@
-import json
-from datasets import load_dataset
+# pip install openpipe
 
-output_file = "race_test.jsonl"
+from random import random
+from openpipe import OpenAI
+import datasets
 
-training_data = []
+test_count = 100
+model_name = "openpipe:finetune-race-small"
 
-fw = open(output_file, 'w')
-
-ds = load_dataset("ehovy/race", "all", streaming=True)
-print(ds["train"])
-
+client = OpenAI(
+  openpipe={"api_key": "opk_425ad4f76622bee031cb088bc837555994a12b88f6"}
+)
 def create_messages(problem, with_answer=False):
     """
     Given a row of the RACE database,
@@ -45,8 +45,30 @@ def create_messages(problem, with_answer=False):
             ]})
     return messages
 
-for dataset in ["train", "test"]:
-    for problem in ds[dataset]:
-        data = {"messages": create_messages(problem, True), "split": dataset.upper()}
-        json.dump(data, fw)
-        fw.write('\n')
+ds = datasets.load_dataset("ehovy/race", "all")["test"]
+ds.shuffle()
+
+correct = 0
+ctr = 0
+
+for problem in ds.select(range(test_count)):
+    completion = client.chat.completions.create(
+        model=model_name,
+        messages=create_messages(problem),
+        temperature=0,
+        openpipe={
+            "tags": {
+                "prompt_id": "counting",
+                "any_key": "any_value"
+            }
+        }
+    )
+    expected_answer = problem["answer"]
+    model_answer = completion.choices[0].message.content
+    if expected_answer == model_answer:
+        correct += 1
+    ctr += 1
+    print(f"#{ctr}: expected {expected_answer}, got {model_answer}")
+
+print(f"Accuracy: {correct / test_count} ({correct}/{test_count})")
+ 
