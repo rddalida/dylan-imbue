@@ -11,6 +11,6 @@ Consists of three main files:
   
    I have generated these on OpenPipe. If you want access to the datasets on OpenPipe, message me - I'd have to add you to the project in OpenPipe. (Can't add them to the repo - too large!)
 - **tester.py**: Tests accuracy of an OpenPipe model on the RACE dataset. To test functionality of the tester, chooses 100 random entries from the testing dataset, checks if model matches with answer.
-- **race/openai_formatter.py**: Formats entries in the RACE dataset as OpenAI chat completion objects, so that the fine-tuner can read them.
+- **race/openai_formatter.py**: Formats entries in the RACE dataset as OpenAI chat completion objects. The resulting output file can be dropped directly into OpenPipe as a dataset.
 
 To run finetuner and tester, set an environment variable `OPENPIPE_API_KEY` with your openpipe key, otherwise it'll ask you for one.
