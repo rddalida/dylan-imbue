@@ -1,4 +1,4 @@
-# RACE Fine-Tuned Model
+# RACE Fine-Tuner
 
 Fine-tunes a model that answers multiple-choice questions in the RACE reading comprehension dataset using OpenPipe.
 
