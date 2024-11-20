@@ -1,11 +1,14 @@
 # code directly taken from https://docs.openpipe.ai/api-reference/post-unstablefinetunecreate
 import requests
+import os
 
 url = "https://api.openpipe.ai/api/v1/unstable/finetune/create"
 
 dataset_id_tiny = "e231526d-09da-4cf8-9713-08bd68eebea7"
 dataset_id_small = "ee5e8326-b4cf-498c-911d-89f61c61650a"
 dataset_id_all = "476d7c11-48ef-4e59-be41-5892fb47e508"
+
+API_KEY = os.environ["OPENPIPE_API_KEY"] if "OPENPIPE_API_KEY" in os.environ else input("Enter OpenPipe API key: ")
 
 payload = {
     "datasetId": dataset_id_small,
@@ -25,7 +28,7 @@ payload = {
     }
 }
 headers = {
-    "Authorization": "Bearer opk_425ad4f76622bee031cb088bc837555994a12b88f6",
+    "Authorization": f"Bearer {API_KEY}",
     "Content-Type": "application/json"
 }
 

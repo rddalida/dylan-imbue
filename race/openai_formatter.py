@@ -1,15 +1,6 @@
 import json
 from datasets import load_dataset
 
-output_file = "race_test.jsonl"
-
-training_data = []
-
-fw = open(output_file, 'w')
-
-ds = load_dataset("ehovy/race", "all", streaming=True)
-print(ds["train"])
-
 def create_messages(problem, with_answer=False):
     """
     Given a row of the RACE database,
@@ -45,8 +36,13 @@ def create_messages(problem, with_answer=False):
             ]})
     return messages
 
-for dataset in ["train", "test"]:
-    for problem in ds[dataset]:
-        data = {"messages": create_messages(problem, True), "split": dataset.upper()}
-        json.dump(data, fw)
-        fw.write('\n')
+if __name__ == "__main__":
+    output_file = "race_test.jsonl"
+    ds = load_dataset("ehovy/race", "all", streaming=True)
+    fw = open(output_file, 'w')
+
+    for dataset in ["train", "test"]:
+        for problem in ds[dataset]:
+            data = {"messages": create_messages(problem, True), "split": dataset.upper()}
+            json.dump(data, fw)
+            fw.write('\n')
