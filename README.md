@@ -5,8 +5,8 @@ Fine-tunes a model that answers multiple-choice questions in the RACE reading co
 Consists of three main files:
 
 - **finetuner.py**: API call for finetuning llama-8b on the RACE dataset using OpenPipe. There are three pre-done training sets, all taken from RACE:
-   - dataset\_id\_tiny: 10 train + 2 test, first 12 entries
-   - dataset\_id\_small: 878 train + 50 test, uniform sampling
+   - dataset\_id\_tiny: 10 train + 2 test, picked 12 entries by hand
+   - dataset\_id\_small: 878 train + 50 test, uniform sample ~1% of data
     - dataset\_id\_all: all 92.8k entries
   
    I have generated these on OpenPipe. If you want access to the datasets on OpenPipe, message me - I'd have to add you to the project in OpenPipe. (Can't add them to the repo - too large!)
